@@ -9,12 +9,8 @@ import {
   defaultFont
 } from "assets/jss/material-dashboard-react.js";
 import tooltipStyle from "assets/jss/material-dashboard-react/tooltipStyle.js";
-import checkboxAdnRadioStyle from "assets/jss/material-dashboard-react/checkboxAdnRadioStyle.js";
-import CustomInputStyle from "assets/jss/material-dashboard-react/components/customInputStyle.js"
 const tableStyle = theme => ({
   ...tooltipStyle,
-  ...checkboxAdnRadioStyle,
-  ...CustomInputStyle,
   checked: {
     color: successColor[0] + "!important"
   },
@@ -55,6 +51,20 @@ const tableStyle = theme => ({
     }
   },
   tableCell: {
+    ...defaultFont,
+    lineHeight: "1.42857143",
+    padding: "0px 0px",
+    verticalAlign: "middle",
+    fontSize: "0.8125rem"
+  },
+  tableCellAvatar: {
+    ...defaultFont,
+    lineHeight: "1.42857143",
+    padding: "10px 2px",
+    verticalAlign: "middle",
+    fontSize: "0.8125rem"
+  },
+  tableCellControl: {
     ...defaultFont,
     lineHeight: "1.42857143",
     padding: "0px 0px",
