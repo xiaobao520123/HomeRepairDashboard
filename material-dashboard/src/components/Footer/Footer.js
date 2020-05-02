@@ -19,22 +19,7 @@ export default function Footer(props) {
           <List className={classes.list}>
             <ListItem className={classes.inlineBlock}>
               <a href="#home" className={classes.block}>
-                Home
-              </a>
-            </ListItem>
-            <ListItem className={classes.inlineBlock}>
-              <a href="#company" className={classes.block}>
-                Company
-              </a>
-            </ListItem>
-            <ListItem className={classes.inlineBlock}>
-              <a href="#portfolio" className={classes.block}>
-                Portfolio
-              </a>
-            </ListItem>
-            <ListItem className={classes.inlineBlock}>
-              <a href="#blog" className={classes.block}>
-                Blog
+                主页
               </a>
             </ListItem>
           </List>
@@ -43,13 +28,13 @@ export default function Footer(props) {
           <span>
             &copy; {1900 + new Date().getYear()}{" "}
             <a
-              href="https://www.creative-tim.com?ref=mdr-footer"
+              href="https://www.uestc.edu.cn"
               target="_blank"
               className={classes.a}
             >
-              Creative Tim
+              综合课程设计2
             </a>
-            , made with love for a better web
+            ，求实求真 大气大为
           </span>
         </p>
       </div>

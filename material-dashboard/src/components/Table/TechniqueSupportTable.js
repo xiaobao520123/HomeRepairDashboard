@@ -19,22 +19,35 @@ import Delete from "@material-ui/icons/Delete";
 // core components
 
 import Button from "components/CustomButtons/Button.js"
-import styles from "assets/jss/material-dashboard-react/components/customerServiceStyle.js";
+import styles from "assets/jss/material-dashboard-react/components/techniqueSupportStyle.js";
 
 const useStyles = makeStyles(styles);
 
-class CustomerService {
-    constructor(uid, name, nickname, employ_date, avatar) {
+class TechniqueSupport {
+    constructor(uid, name, nickname, state, employ_date, avatar) {
       this.uid = uid;
       this.name = name;
       this.nickname = nickname;
+      this.state = state;
       this.employ_date = employ_date;
       this.avatar = avatar;
     }
 };
 
+const stateName = [
+  "无任务",
+  "维修中",
+  "订单受阻"
+];
+
 export default function CustomTable(props) {
   const classes = useStyles();
+
+  const stateColor = [
+    classes.stateIdle,
+    classes.stateRepairing,
+    classes.stateBlock
+  ];
 
   class TheTable extends React.Component {
     constructor(props) {
@@ -61,19 +74,20 @@ export default function CustomTable(props) {
       this.setState({loadingState: 0});
         this.serverRequest = jQuery.ajax({
           type: "GET",
-          url: "http://47.112.177.70/?need=employee-info&type=1&uid=all",
+          url: "http://47.112.177.70/?need=employee-info&type=2&uid=all",
           timeout: 5000,
           success: function(status) {
             var json = JSON.parse(status);
             const newList = this.state.list;
             json.forEach(element => {
-              const cs = new CustomerService(
+              const ts = new TechniqueSupport(
                 element["uid"], 
                 null, 
                 element["nickname"],
+                element["state"],
                 element["employ_date"],
                 null);
-              const index = newList.push(cs) - 1;
+              const index = newList.push(ts) - 1;
 
               this.setState({loadingState: 0});
               Server.getUserInfoByUID(element["uid"], 
@@ -117,7 +131,7 @@ export default function CustomTable(props) {
     render() {
       return (
            <div className={classes.tableResponsive}>
-            <Button type="button" color="success" onClick={() => this.handleClickAdd()}>添加</Button>
+            <Button type="button" color="info" onClick={() => this.handleClickAdd()}>添加</Button>
           {this.state.loadingState === 0 ? <CircularProgress / > : null}
           <Table className={classes.table}>
               <TableHead className={classes.successTableHeader}>
@@ -140,6 +154,10 @@ export default function CustomTable(props) {
                   </TableCell>
                   <TableCell 
                     className={classes.tableCell + " " + classes.tableHeadCell}>
+                      状态
+                  </TableCell>
+                  <TableCell 
+                    className={classes.tableCell + " " + classes.tableHeadCell}>
                       应聘日期
                   </TableCell>
                   <TableCell 
@@ -150,26 +168,29 @@ export default function CustomTable(props) {
               </TableHead>
             <TableBody>
               {
-                this.state.list.map((cs, index) => {
+                this.state.list.map((ts, index) => {
                   return (
                     <TableRow key={index} className={classes.tableBodyRow}>
                       <TableCell className={classes.tableCellAvatar}>
-                        <Avatar alt={"avatar_uid_" + cs.uid} src={
-                          cs.avatar === null ? Server.defaultAvatar : cs.avatar
+                        <Avatar alt={"avatar_uid_" + ts.uid} src={
+                          ts.avatar === null ? Server.defaultAvatar : ts.avatar
                         }>
                         </Avatar>
                       </TableCell>
                       <TableCell className={classes.tableCell}>
-                        {cs.uid}
+                        {ts.uid}
                       </TableCell>
                       <TableCell className={classes.tableCell}>
-                        {cs.name}
+                        {ts.name}
                       </TableCell>
                       <TableCell className={classes.tableCell}>
-                        {cs.nickname}
+                        {ts.nickname}
+                      </TableCell>
+                      <TableCell className={classes.tableCell + " " + stateColor[ts.state]}>
+                        {stateName[ts.state]}
                       </TableCell>
                       <TableCell className={classes.tableCell}>
-                        {cs.employ_date}
+                        {ts.employ_date}
                       </TableCell>
                       <TableCell className={classes.tableCellControl}>
                         <Tooltip

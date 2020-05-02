@@ -19,22 +19,27 @@ import Delete from "@material-ui/icons/Delete";
 // core components
 
 import Button from "components/CustomButtons/Button.js"
-import styles from "assets/jss/material-dashboard-react/components/customerServiceStyle.js";
+import styles from "assets/jss/material-dashboard-react/components/userAccountStyle.js";
 
 const useStyles = makeStyles(styles);
 
-class CustomerService {
-    constructor(uid, name, nickname, employ_date, avatar) {
+class UserAccount {
+    constructor(uid, name, login_id, avatar) {
       this.uid = uid;
       this.name = name;
-      this.nickname = nickname;
-      this.employ_date = employ_date;
+      this.login_id = login_id;
       this.avatar = avatar;
     }
 };
 
 export default function CustomTable(props) {
   const classes = useStyles();
+
+  const stateColor = [
+    classes.stateIdle,
+    classes.stateRepairing,
+    classes.stateBlock
+  ];
 
   class TheTable extends React.Component {
     constructor(props) {
@@ -61,19 +66,18 @@ export default function CustomTable(props) {
       this.setState({loadingState: 0});
         this.serverRequest = jQuery.ajax({
           type: "GET",
-          url: "http://47.112.177.70/?need=employee-info&type=1&uid=all",
+          url: "http://47.112.177.70/?need=user-info&uid=all",
           timeout: 5000,
           success: function(status) {
             var json = JSON.parse(status);
             const newList = this.state.list;
             json.forEach(element => {
-              const cs = new CustomerService(
+              const user = new UserAccount(
                 element["uid"], 
-                null, 
-                element["nickname"],
-                element["employ_date"],
-                null);
-              const index = newList.push(cs) - 1;
+                element["name"], 
+                element["login_id"],
+                element["avatar"]);
+              const index = newList.push(user) - 1;
 
               this.setState({loadingState: 0});
               Server.getUserInfoByUID(element["uid"], 
@@ -117,7 +121,7 @@ export default function CustomTable(props) {
     render() {
       return (
            <div className={classes.tableResponsive}>
-            <Button type="button" color="success" onClick={() => this.handleClickAdd()}>添加</Button>
+            <Button type="button" color="info" onClick={() => this.handleClickAdd()}>添加</Button>
           {this.state.loadingState === 0 ? <CircularProgress / > : null}
           <Table className={classes.table}>
               <TableHead className={classes.successTableHeader}>
@@ -132,15 +136,11 @@ export default function CustomTable(props) {
                   </TableCell>
                   <TableCell 
                     className={classes.tableCell + " " + classes.tableHeadCell}>
-                      姓名
-                  </TableCell>
+                      登陆账户
+                  </TableCell>                  
                   <TableCell 
                     className={classes.tableCell + " " + classes.tableHeadCell}>
-                      昵称
-                  </TableCell>
-                  <TableCell 
-                    className={classes.tableCell + " " + classes.tableHeadCell}>
-                      应聘日期
+                      姓名/昵称
                   </TableCell>
                   <TableCell 
                     className={classes.tableCell + " " + classes.tableHeadCell}>
@@ -150,26 +150,23 @@ export default function CustomTable(props) {
               </TableHead>
             <TableBody>
               {
-                this.state.list.map((cs, index) => {
+                this.state.list.map((user, index) => {
                   return (
                     <TableRow key={index} className={classes.tableBodyRow}>
                       <TableCell className={classes.tableCellAvatar}>
-                        <Avatar alt={"avatar_uid_" + cs.uid} src={
-                          cs.avatar === null ? Server.defaultAvatar : cs.avatar
+                        <Avatar alt={"avatar_uid_" + user.uid} src={
+                          user.avatar === null ? Server.defaultAvatar : user.avatar
                         }>
                         </Avatar>
                       </TableCell>
                       <TableCell className={classes.tableCell}>
-                        {cs.uid}
+                        {user.uid}
                       </TableCell>
                       <TableCell className={classes.tableCell}>
-                        {cs.name}
+                        {user.login_id}
                       </TableCell>
                       <TableCell className={classes.tableCell}>
-                        {cs.nickname}
-                      </TableCell>
-                      <TableCell className={classes.tableCell}>
-                        {cs.employ_date}
+                        {user.name}
                       </TableCell>
                       <TableCell className={classes.tableCellControl}>
                         <Tooltip
