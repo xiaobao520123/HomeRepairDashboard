@@ -18,11 +18,6 @@
 // @material-ui/icons
 import Dashboard from "@material-ui/icons/Dashboard";
 import Person from "@material-ui/icons/Person";
-import LibraryBooks from "@material-ui/icons/LibraryBooks";
-import BubbleChart from "@material-ui/icons/BubbleChart";
-import LocationOn from "@material-ui/icons/LocationOn";
-import Notifications from "@material-ui/icons/Notifications";
-import Language from "@material-ui/icons/Language";
 import Notes from "@material-ui/icons/Notes";
 import People from "@material-ui/icons/People";
 import SettingsIcon from "@material-ui/icons/Settings";
@@ -32,13 +27,7 @@ import UserAccount from "views/UserAccount/UserAccount.js";
 import HumanResource from "views/HumanResource/HumanResource.js";
 import Settings from "views/Settings/Settings.js";
 import DashboardPage from "views/Dashboard/Dashboard.js";
-import TableList from "views/TableList/TableList.js";
-import Typography from "views/Typography/Typography.js";
-import Icons from "views/Icons/Icons.js";
-import Maps from "views/Maps/Maps.js";
-import NotificationsPage from "views/Notifications/Notifications.js";
 // core components/views for RTL layout
-import RTLPage from "views/RTLPage/RTLPage.js";
 
 const dashboardRoutes = [
   {

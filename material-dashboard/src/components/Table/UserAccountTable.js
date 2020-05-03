@@ -35,12 +35,6 @@ class UserAccount {
 export default function CustomTable(props) {
   const classes = useStyles();
 
-  const stateColor = [
-    classes.stateIdle,
-    classes.stateRepairing,
-    classes.stateBlock
-  ];
-
   class TheTable extends React.Component {
     constructor(props) {
         super(props);
