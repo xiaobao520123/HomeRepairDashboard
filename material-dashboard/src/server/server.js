@@ -14,6 +14,11 @@ var Server = {
         ""
     ],
 
+    orderType: [
+        "普通订单",
+        "紧急订单"
+    ],
+
     orderState: [
         "等待响应",
         "等待派遣维修人员",
@@ -64,7 +69,66 @@ var Server = {
             error: error,
             complete : complete
             });
-    }
+    },
+
+    tranformTextToHTML : function(text) {
+        if (text == null)
+            return null;
+        text = text.replace(/\r\n/g,"<br />")
+        text = text.replace(/\n/g,"<br />");
+        return text;
+    },
+
+    responseOrder : function(order, beforeSend, success, error, complete) {
+        const json = {
+            "cmd" : "reponse-order",
+            "oid": order.oid
+          };
+        return jQuery.ajax({
+            type: "post",
+            url: "http://47.112.177.70/",
+            data: JSON.stringify(json),
+            timeout: 5000,
+            beforeSend: beforeSend,
+            success: success,
+            error: error,
+            complete : complete
+          });
+    },
+
+    updateOrder : function(order, beforeSend, success, error, complete) {
+        const json = {
+            "cmd" : "update-order",
+            "order": order
+          };
+        return jQuery.ajax({
+            type: "post",
+            url: "http://47.112.177.70/",
+            data: JSON.stringify(json),
+            timeout: 5000,
+            beforeSend: beforeSend,
+            success: success,
+            error: error,
+            complete : complete
+          });
+    },
+
+    deleteOrder : function(order, beforeSend, success, error, complete) {
+        const json = {
+            "cmd" : "delete-order",
+            "oid": order.oid
+          };
+        return jQuery.ajax({
+            type: "post",
+            url: "http://47.112.177.70/",
+            data: JSON.stringify(json),
+            timeout: 5000,
+            beforeSend: beforeSend,
+            success: success,
+            error: error,
+            complete : complete
+          });
+    },
 }
 
 export default Server;
