@@ -113,6 +113,12 @@ const tableStyle = theme => ({
     color: dangerColor[0],
     boxShadow: "none"
   },
+  avatar: {
+    display: 'flex',
+    '& > *': {
+      margin: theme.spacing(2),
+    },
+  },
 });
 
 export default tableStyle;

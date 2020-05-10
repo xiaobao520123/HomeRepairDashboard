@@ -514,7 +514,7 @@ export default function OrderPage(props) {
          </GridContainer>
          <Dialog
           open={this.state.openDeleteDialog}
-          onClose={e => this.handleCloseDeleteDialog(e)}
+          onClose={e => this.handleCloseDeleteDialog(e,false)}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
           >
