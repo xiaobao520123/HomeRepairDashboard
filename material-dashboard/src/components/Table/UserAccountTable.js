@@ -277,9 +277,7 @@ export default function CustomTable(props) {
               list : newList
             });
           }.bind(this),
-          error: function(status) {
-            alert("连接服务器失败，请检查网络设置");
-          },
+          error: null,
           complete : function(XMLHttpRequest, status) {
             if(status === 'timeout') {
               alert("操作失败，连接超时");

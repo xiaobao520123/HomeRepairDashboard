@@ -56,9 +56,7 @@ export default function CustomTable(props) {
           timeout: 5000,
           success: function(status) {
           },
-          error: function(status) {
-            alert("网络错误，请检查网络设置");
-          },
+          error: null,
           complete : function(XMLHttpRequest, status) {
             if(status === 'timeout') {
               alert("操作失败，连接超时");
@@ -105,9 +103,7 @@ export default function CustomTable(props) {
               });
             }
           }.bind(this),
-          error: function(status) {
-            alert("网络错误，请检查网络设置");
-          },
+          error: null,
           complete : function(XMLHttpRequest, status) {
             if(status === 'timeout') {
               alert("操作失败，连接超时");
@@ -181,9 +177,7 @@ export default function CustomTable(props) {
               });
             }
           }.bind(this),
-          error: function(status) {
-            alert("网络错误，请检查网络设置");
-          },
+          error: null,
           complete : function(XMLHttpRequest, status) {
             if(status === 'timeout') {
               alert("操作失败，连接超时");
