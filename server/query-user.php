@@ -22,6 +22,7 @@ if($uid == "all") {
     $user['name']=$row['name'];
     $user['login_id']=$row['login_id'];
     $user['avatar']=$row['avatar'];
+    $user['phone']=$row['phone'];
     array_push($users,$user);
   }
 } else {
@@ -32,6 +33,7 @@ if($uid == "all") {
     $users['name']=$row['name'];
     $users['login_id']=$row['login_id'];
     $users['avatar']=$row['avatar'];
+    $users['phone']=$row['phone'];
   } else {
     $users['success'] = "0";
     $users['uid'] = $uid;

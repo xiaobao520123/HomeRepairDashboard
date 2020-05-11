@@ -39,7 +39,7 @@ if($uid == "all") {
     } else if ($type == 2) {
       $user['uid']=$row['uid'];
       $user['nickname']=$row['nickname'];
-      $user['state']=$row['employ_date'];
+      $user['state']=$row['state'];
       $user['employ_date']=$row['employ_date'];
     }
     array_push($users,$user);
