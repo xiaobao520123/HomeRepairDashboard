@@ -129,6 +129,123 @@ var Server = {
             complete : complete
           });
     },
+
+    addUser : function(newUserInfo, beforeSend, success, error, complete) {
+        const json = {
+            "cmd" : "new-user",
+            "uid": newUserInfo.uid,
+            "login_id": newUserInfo.login_id,
+            "name": newUserInfo.name,
+            "password": newUserInfo.password,
+            "phone": newUserInfo.phone,
+            "avatar": newUserInfo.avatar
+          };
+        return jQuery.ajax({
+            type: "post",
+            url: "http://47.112.177.70/",
+            data: JSON.stringify(json),
+            timeout: 5000,
+            beforeSend: beforeSend,
+            success: success,
+            error: error,
+            complete : complete
+          });
+    },
+
+    updateUserInfo : function(uid, newUserInfo, beforeSend, success, error, complete) {
+        const json = {
+            "cmd" : "update-user-info",
+            "uid": uid,
+            "newUID": newUserInfo.uid,
+            "newName": newUserInfo.name,
+            "newLoginID": newUserInfo.login_id,
+            "newPhone": newUserInfo.phone,
+            "newAvatar": newUserInfo.avatar
+          };
+        return jQuery.ajax({
+            type: "post",
+            url: "http://47.112.177.70/",
+            data: JSON.stringify(json),
+            timeout: 5000,
+            beforeSend: beforeSend,
+            success: success,
+            error: error,
+            complete : complete
+          });
+    },
+
+    deleteUser : function(uid, beforeSend, success, error, complete) {
+        const json = {
+            "cmd" : "delete-user",
+            "uid": uid,
+          };
+        return jQuery.ajax({
+            type: "post",
+            url: "http://47.112.177.70/",
+            data: JSON.stringify(json),
+            timeout: 5000,
+            beforeSend: beforeSend,
+            success: success,
+            error: error,
+            complete : complete
+          });
+    },
+
+    addEmployee : function(newEmployeeInfo, beforeSend, success, error, complete) {
+        const json = {
+            "cmd" : "new-employee",
+            "uid": newEmployeeInfo.uid,
+            "type": newEmployeeInfo.type,
+            "nickname": newEmployeeInfo.nickname
+          };
+        return jQuery.ajax({
+            type: "post",
+            url: "http://47.112.177.70/",
+            data: JSON.stringify(json),
+            timeout: 5000,
+            beforeSend: beforeSend,
+            success: success,
+            error: error,
+            complete : complete
+          });
+    },
+
+    updateEmployeeInfo : function(uid, newEmployeeInfo, beforeSend, success, error, complete) {
+        const json = {
+            "cmd" : "update-employee",
+            "uid": uid,
+            "type": newEmployeeInfo.type,
+            "newNickname": newEmployeeInfo.nickname,
+          };
+        return jQuery.ajax({
+            type: "post",
+            url: "http://47.112.177.70/",
+            data: JSON.stringify(json),
+            timeout: 5000,
+            beforeSend: beforeSend,
+            success: success,
+            error: error,
+            complete : complete
+          });
+    },
+
+    deleteEmployee : function(uid, type, beforeSend, success, error, complete) {
+        const json = {
+            "cmd" : "delete-employee",
+            "uid": uid,
+            "type": type
+          };
+        return jQuery.ajax({
+            type: "post",
+            url: "http://47.112.177.70/",
+            data: JSON.stringify(json),
+            timeout: 5000,
+            beforeSend: beforeSend,
+            success: success,
+            error: error,
+            complete : complete
+          });
+    },
 }
 
 export default Server;

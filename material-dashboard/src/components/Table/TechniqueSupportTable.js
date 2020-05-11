@@ -79,7 +79,7 @@ export default function CustomTable(props) {
     }
 
     handleClickAdd() {
-      this.setState({openAddDialog: true});
+      this.setState({openAddDialog: true });
     }
 
     handleDelete(index) {
@@ -95,7 +95,43 @@ export default function CustomTable(props) {
       if (userEditing === null)
         return;
       const user = this.state.list[userEditing];
-      this.setState({openEditDialog: false, userEditing: null});
+      const newEmployeeInfo = {
+        "uid" : user.uid,
+        "nickname": document.getElementById("input_nickname").value,
+        "type": 1
+      };
+      if (newEmployeeInfo.nickname === "") {
+        alert("请输入姓名/昵称");
+        return;
+      }
+
+      if (newEmployeeInfo.nickname === user.nickname) {
+        newEmployeeInfo.nickname = undefined;
+      } 
+
+      this.serverRequest = Server.updateEmployeeInfo(
+        user.uid, 
+        newEmployeeInfo,
+        null,
+        function(status) {
+          if (status === "")
+            return;
+          var json = JSON.parse(status);
+          if (json['success'] === "1") {
+            alert("应用成功");
+            this.setState({openEditDialog: false, userEditing: null});
+            document.location.reload();
+          } else {
+            alert("应用失败，错误信息：" + json['error_msg']);
+          }
+          
+        }.bind(this),
+        null,
+        function(status) {
+          if (status === "timeout") {
+            alert("连接超时");
+          }
+        });
     }
 
     handleCloseEditDialog() {
@@ -105,16 +141,67 @@ export default function CustomTable(props) {
     handleCloseDeleteDialog(willDelete) {
       if (willDelete){
         // 删除用户
-
-      }
-      this.setState({openDeleteDialog: false, userEditing: null});
+        const userEditing = this.state.userEditing;
+        if (userEditing === null)
+          return;
+        const user = this.state.list[userEditing];
+  
+        this.serverRequest = Server.deleteEmployee(
+          user.uid, 
+          1,
+          null,
+          function(status) {
+            if (status === "")
+              return;
+            var json = JSON.parse(status);
+            if (json['success'] === "1") {
+              const list = this.state.list;
+              list.splice(userEditing, 1);
+              this.setState({list: list, openDeleteDialog: false, userEditing: null});
+            } else {
+              alert("删除失败，错误信息：" + json['error_msg']);
+            }
+            
+          }.bind(this),
+          null,
+          function(status) {
+            if (status === "timeout") {
+              alert("连接超时");
+            }
+          });
+      } else this.setState({openDeleteDialog: false, userEditing: null});
     }
 
     handleCloseAddDialog(willAdd) {
       if (willAdd) {
+        const newInfo = {
+          "uid" : document.getElementById("input_uid").value,
+          "nickname": document.getElementById("input_nickname").value,
+          "type": 1
+        };
 
-      }
-      this.setState({openAddDialog: false});
+        this.serverRequest = Server.addEmployee(
+          newInfo,
+          null,
+          function(status) {
+            if (status === "")
+              return;
+            var json = JSON.parse(status);
+            if (json['success'] === "1") {
+              alert("添加成功");
+              document.location.reload();
+            } else {
+              alert("添加失败，错误信息：" + json['error_msg']);
+            }
+          },
+          null,
+          function(status) {
+            if (status === "timeout") {
+              alert("连接超时");
+            }
+          });
+
+      } else this.setState({openAddDialog: false});
     }
 
     componentDidMount() {
@@ -403,7 +490,7 @@ export default function CustomTable(props) {
                           昵称
                         </TableCell>
                         <TableCell>
-                          <CustomInput id="input_name"
+                          <CustomInput id="input_nickname"
                             inputProps={{
                               placeholder: "昵称",
                               defaultValue: "新技术人员"

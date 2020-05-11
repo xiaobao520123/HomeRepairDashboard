@@ -83,7 +83,6 @@ export default function OrderPage(props) {
         function(status) {
           if (status === "")
             return;
-          var json = JSON.parse(status);
         },
         null,
         function(XMLHttpRequest, status) {
@@ -123,8 +122,6 @@ export default function OrderPage(props) {
         function(status) {
           if (status === "")
             return;
-          var json = JSON.parse(status);
-          alert(status);
         },
         null,
         function(XMLHttpRequest, status) {
@@ -148,7 +145,6 @@ export default function OrderPage(props) {
           function(status) {
             if (status === "")
               return;
-            var json = JSON.parse(status);
             document.location = "order";
           },
           null,

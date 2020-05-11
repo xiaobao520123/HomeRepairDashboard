@@ -41,10 +41,11 @@ function PaperComponent(props) {
 }
 
 class UserAccount {
-    constructor(uid, name, login_id, avatar) {
+    constructor(uid, name, login_id, phone, avatar) {
       this.uid = uid;
       this.name = name;
       this.login_id = login_id;
+      this.phone = phone;
       this.avatar = avatar;
     }
 };
@@ -71,7 +72,7 @@ export default function CustomTable(props) {
     }
 
     handleDelete(index) {
-      this.setState({openDeleteDialog: true, userEditing: index});
+        this.setState({openDeleteDialog: true, userEditing: index});
     }
 
     handleEdit(index) {
@@ -84,7 +85,68 @@ export default function CustomTable(props) {
       if (userEditing === null)
         return;
       const user = this.state.list[userEditing];
-      this.setState({openEditDialog: false, userEditing: null, inputAvatar: null});
+      const newUserInfo = {
+        "uid" : document.getElementById("input_uid").value,
+        "name": document.getElementById("input_name").value,
+        "login_id": document.getElementById("input_loginid").value,
+        "phone" : document.getElementById("input_phone").value,
+        "avatar": this.state.inputAvatar === Server.defaultAvatar ? 
+                  null : this.state.inputAvatar
+      }
+      if (newUserInfo.uid === "" || newUserInfo.uid.length > 10) {
+        alert("无效的UID");
+        return;
+      } else if (newUserInfo.name === "") {
+        alert("请输入姓名/昵称");
+        return;
+      } else if (newUserInfo.login_id === "") {
+        alert("请输入登录账户");
+        return;
+      }
+
+      if (newUserInfo.uid === user.uid) {
+        newUserInfo.uid = undefined;
+      } 
+
+      if (newUserInfo.name === user.name) {
+        newUserInfo.name = undefined;
+      } 
+
+      if (newUserInfo.login_id === user.login_id) {
+        newUserInfo.login_id = undefined;
+      } 
+
+      if (newUserInfo.avatar === user.avatar) {
+        newUserInfo.avatar = undefined;
+      } 
+
+      if (newUserInfo.phone === user.phone) {
+        newUserInfo.phone = undefined;
+      } 
+
+      this.serverRequest = Server.updateUserInfo(
+        user.uid, 
+        newUserInfo,
+        null,
+        function(status) {
+          if (status === "")
+            return;
+          var json = JSON.parse(status);
+          if (json['success'] === "1") {
+            alert("应用成功");
+            this.setState({openEditDialog: false, userEditing: null, inputAvatar: null});
+            document.location.reload();
+          } else {
+            alert("应用失败，错误信息：" + json['error_msg']);
+          }
+          
+        }.bind(this),
+        null,
+        function(status) {
+          if (status === "timeout") {
+            alert("连接超时");
+          }
+        });
     }
 
     handleCloseEditDialog() {
@@ -94,16 +156,88 @@ export default function CustomTable(props) {
     handleCloseDeleteDialog(e, willDelete) {
       if (willDelete){
         // 删除用户
-
-      }
-      this.setState({openDeleteDialog: false, userEditing: null});
+        const userEditing = this.state.userEditing;
+        if (userEditing === null)
+          return;
+        const user = this.state.list[userEditing];
+  
+        this.serverRequest = Server.deleteUser(
+          user.uid, 
+          null,
+          function(status) {
+            if (status === "")
+              return;
+            var json = JSON.parse(status);
+            if (json['success'] === "1") {
+              const list = this.state.list;
+              list.splice(userEditing, 1);
+              this.setState({list: list, openDeleteDialog: false, userEditing: null});
+            } else {
+              alert("删除失败，错误信息：" + json['error_msg']);
+            }
+            
+          }.bind(this),
+          null,
+          function(status) {
+            if (status === "timeout") {
+              alert("连接超时");
+            }
+          });
+      } else this.setState({openDeleteDialog: false, userEditing: null});
     }
 
     handleCloseAddDialog(willAdd) {
       if (willAdd) {
+        const newUserInfo = {
+          "uid" : document.getElementById("input_uid").value,
+          "name": document.getElementById("input_name").value,
+          "login_id": document.getElementById("input_loginid").value,
+          "password": document.getElementById("input_password").value,
+          "phone": document.getElementById("input_phone").value,
+          "avatar": this.state.inputAvatar === Server.defaultAvatar ? 
+                    null : this.state.inputAvatar
+        }
+        if (newUserInfo.uid === "" || newUserInfo.uid.length > 10) {
+          alert("无效的UID");
+          return;
+        } else if (newUserInfo.name === "") {
+          alert("请输入姓名/昵称");
+          return;
+        } else if (newUserInfo.login_id === "") {
+          alert("请输入登录账户");
+          return;
+        }
 
-      }
-      this.setState({openAddDialog: false ,inputAvatar: null});
+        this.serverRequest = Server.addUser(
+          newUserInfo,
+          null,
+          function(status) {
+            if (status === "")
+              return;
+            var json = JSON.parse(status);
+            if (json['success'] === "1") {
+              const list = this.state.list;
+              const user = new UserAccount(
+                newUserInfo.uid, 
+                newUserInfo.name, 
+                newUserInfo.login_id, 
+                newUserInfo.phone,
+                newUserInfo.avatar);
+              list.push(user);
+              this.setState({openAddDialog: false, list: list, inputAvatar: null});
+            } else {
+              alert("添加失败，错误信息：" + json['error_msg']);
+            }
+            
+          }.bind(this),
+          null,
+          function(status) {
+            if (status === "timeout") {
+              alert("连接超时");
+            }
+          });
+
+      } else this.setState({openAddDialog: false ,inputAvatar: null});
     }
 
     handleUploadAvatar() {
@@ -135,27 +269,9 @@ export default function CustomTable(props) {
                 element["uid"], 
                 element["name"], 
                 element["login_id"],
-                element["avatar"]);
-              const index = newList.push(user) - 1;
-
-              this.setState({loadingState: 0});
-              Server.getUserInfoByUID(element["uid"], 
-                function(status) {
-                  var json = JSON.parse(status);
-                  if (json["success"] === "1") {
-                    newList[index].name = json["name"];
-                    newList[index].avatar = json["avatar"];
-                  }
-                },
-                function(status) {
-                  alert("连接服务器失败，请检查网络设置!");
-                },
-                function(XMLHttpRequest, status) {
-                  if(status === "timeout") {
-                    alert("连接超时!");
-                  }
-                  this.setState({loadingState: 1});
-                }.bind(this));
+                element["phone"],
+                element["avatar"] === "" ? Server.defaultAvatar : element["avatar"]);
+              newList.push(user);
             });
             this.setState({
               list : newList
@@ -203,6 +319,10 @@ export default function CustomTable(props) {
                   </TableCell>
                   <TableCell 
                     className={classes.tableCell + " " + classes.tableHeadCell}>
+                      联系电话
+                  </TableCell>
+                  <TableCell 
+                    className={classes.tableCell + " " + classes.tableHeadCell}>
                       操作
                   </TableCell>
                 </TableRow>
@@ -226,6 +346,9 @@ export default function CustomTable(props) {
                       </TableCell>
                       <TableCell className={classes.tableCell}>
                         {user.name}
+                      </TableCell>
+                      <TableCell className={classes.tableCell}>
+                        {user.phone}
                       </TableCell>
                       <TableCell className={classes.tableCellControl}>
                         <Tooltip
@@ -344,6 +467,22 @@ export default function CustomTable(props) {
                           inputProps={{
                             placeholder: "姓名/昵称",
                             defaultValue: this.state.list[this.state.userEditing].name
+                          }}
+                          formControlProps={{
+                            fullWidth: true
+                          }} 
+                        />
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>
+                        联系电话
+                      </TableCell>
+                      <TableCell>
+                        <CustomInput id="input_phone"
+                          inputProps={{
+                            placeholder: "联系电话",
+                            defaultValue: this.state.list[this.state.userEditing].phone
                           }}
                           formControlProps={{
                             fullWidth: true
@@ -476,6 +615,22 @@ export default function CustomTable(props) {
                           inputProps={{
                             placeholder: "姓名/昵称",
                             defaultValue: "新用户"
+                          }}
+                          formControlProps={{
+                            fullWidth: true
+                          }} 
+                        />
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>
+                        联系电话
+                      </TableCell>
+                      <TableCell>
+                        <CustomInput id="input_phone"
+                          inputProps={{
+                            placeholder: "联系电话",
+                            defaultValue: ""
                           }}
                           formControlProps={{
                             fullWidth: true
