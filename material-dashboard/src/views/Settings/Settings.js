@@ -1,5 +1,6 @@
 import React from "react";
 import jQuery from "jquery";
+import Server from "server/server.js";
 // react plugin for creating charts
 // @material-ui/core
 import { makeStyles } from "@material-ui/core/styles";
@@ -66,7 +67,9 @@ export default function Dashboard() {
     }
    
     componentDidMount() {
-      this.serverRequest = jQuery.getJSON(this.props.source, function (json) {
+      this.serverRequest = jQuery.getJSON(
+        Server.defaultServerDomain + '/?need=quick-answer', 
+        function (json) {
         var data = [];
         jQuery.each(json, function(i, qa){
           data[i] = [];
@@ -112,6 +115,6 @@ export default function Dashboard() {
   }
 
   return (
-    <QuickAnswer source="http://47.112.177.70/?need=quick-answer" />
+    <QuickAnswer />
   );
 }

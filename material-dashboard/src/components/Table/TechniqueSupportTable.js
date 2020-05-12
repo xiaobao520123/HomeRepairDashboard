@@ -208,7 +208,7 @@ export default function CustomTable(props) {
       this.setState({loadingState: 0});
         this.serverRequest = jQuery.ajax({
           type: "GET",
-          url: "http://47.112.177.70/?need=employee-info&type=2&uid=all",
+          url: Server.defaultServerDomain + "/?need=employee-info&type=2&uid=all",
           timeout: 5000,
           success: function(status) {
             var json = JSON.parse(status);

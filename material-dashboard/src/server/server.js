@@ -3,7 +3,7 @@ import Avatar_NULL from "assets/img/avatar_null.jpg";
 
 var Server = {
     defaultAvatar : Avatar_NULL,
-
+    defaultServerDomain: "http://47.112.177.70",
     orderStateColor: [
         "danger",
         "danger",
@@ -45,7 +45,7 @@ var Server = {
       };
       return jQuery.ajax({
           type: "post",
-          url: "http://47.112.177.70/",
+          url: Server.defaultServerDomain,
           data: JSON.stringify(json),
           timeout: 5000,
           beforeSend: beforeSend,
@@ -62,7 +62,7 @@ var Server = {
       };
       return jQuery.ajax({
           type: "post",
-          url: "http://47.112.177.70/",
+          url: Server.defaultServerDomain,
           data: JSON.stringify(json),
           timeout: 5000,
           beforeSend: beforeSend,
@@ -75,7 +75,7 @@ var Server = {
     getUserInfoByUID : function (uid, success, error, complete) {
         return jQuery.ajax({
             type: "GET",
-            url: "http://47.112.177.70/?need=user-info&uid=" + uid,
+            url: Server.defaultServerDomain + "/?need=user-info&uid=" + uid,
             timeout: 5000,
             success: success,
             error: error,
@@ -86,7 +86,7 @@ var Server = {
     getOrderList : function(beforeSend, success, error, complete) {
         return jQuery.ajax({
             type: "GET",
-            url: "http://47.112.177.70/?need=order-info&oid=all",
+            url: Server.defaultServerDomain + "/?need=order-info&oid=all",
             timeout: 5000,
             beforeSend: beforeSend,
             success: success,
@@ -98,7 +98,7 @@ var Server = {
     getOrderInfoByOID : function(oid,beforeSend, success, error, complete) {
         return jQuery.ajax({
             type: "GET",
-            url: "http://47.112.177.70/?need=order-info&oid=" + oid,
+            url: Server.defaultServerDomain + "/?need=order-info&oid=" + oid,
             timeout: 5000,
             beforeSend: beforeSend,
             success: success,
@@ -122,7 +122,7 @@ var Server = {
           };
         return jQuery.ajax({
             type: "post",
-            url: "http://47.112.177.70/",
+            url: Server.defaultServerDomain,
             data: JSON.stringify(json),
             timeout: 5000,
             beforeSend: beforeSend,
@@ -139,7 +139,7 @@ var Server = {
           };
         return jQuery.ajax({
             type: "post",
-            url: "http://47.112.177.70/",
+            url: Server.defaultServerDomain,
             data: JSON.stringify(json),
             timeout: 5000,
             beforeSend: beforeSend,
@@ -156,7 +156,7 @@ var Server = {
           };
         return jQuery.ajax({
             type: "post",
-            url: "http://47.112.177.70/",
+            url: Server.defaultServerDomain,
             data: JSON.stringify(json),
             timeout: 5000,
             beforeSend: beforeSend,
@@ -178,7 +178,7 @@ var Server = {
           };
         return jQuery.ajax({
             type: "post",
-            url: "http://47.112.177.70/",
+            url: Server.defaultServerDomain,
             data: JSON.stringify(json),
             timeout: 5000,
             beforeSend: beforeSend,
@@ -200,7 +200,7 @@ var Server = {
           };
         return jQuery.ajax({
             type: "post",
-            url: "http://47.112.177.70/",
+            url: Server.defaultServerDomain,
             data: JSON.stringify(json),
             timeout: 5000,
             beforeSend: beforeSend,
@@ -217,7 +217,7 @@ var Server = {
           };
         return jQuery.ajax({
             type: "post",
-            url: "http://47.112.177.70/",
+            url: Server.defaultServerDomain,
             data: JSON.stringify(json),
             timeout: 5000,
             beforeSend: beforeSend,
@@ -236,7 +236,7 @@ var Server = {
           };
         return jQuery.ajax({
             type: "post",
-            url: "http://47.112.177.70/",
+            url: Server.defaultServerDomain,
             data: JSON.stringify(json),
             timeout: 5000,
             beforeSend: beforeSend,
@@ -255,7 +255,7 @@ var Server = {
           };
         return jQuery.ajax({
             type: "post",
-            url: "http://47.112.177.70/",
+            url: Server.defaultServerDomain,
             data: JSON.stringify(json),
             timeout: 5000,
             beforeSend: beforeSend,
@@ -273,7 +273,7 @@ var Server = {
           };
         return jQuery.ajax({
             type: "post",
-            url: "http://47.112.177.70/",
+            url: Server.defaultServerDomain,
             data: JSON.stringify(json),
             timeout: 5000,
             beforeSend: beforeSend,

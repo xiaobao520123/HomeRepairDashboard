@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
 import jQuery from "jquery";
+import Server from "server/server";
+
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -51,7 +53,7 @@ export default function CustomTable(props) {
       sendToServer(json) {
         jQuery.ajax({
           type: "post",
-          url: "http://47.112.177.70/",
+          url: Server.defaultServerDomain,
           data: JSON.stringify(json),
           timeout: 5000,
           success: function(status) {
@@ -88,7 +90,7 @@ export default function CustomTable(props) {
 
         jQuery.ajax({
           type: "post",
-          url: "http://47.112.177.70/",
+          url: Server.defaultServerDomain,
           data: JSON.stringify(json),
           timeout: 5000,
           success: function(status) {
@@ -162,7 +164,7 @@ export default function CustomTable(props) {
 
         jQuery.ajax({
           type: "post",
-          url: "http://47.112.177.70/",
+          url: Server.defaultServerDomain,
           data: JSON.stringify(json),
           timeout: 5000,
           success: function(status) {
