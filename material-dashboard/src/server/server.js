@@ -1,5 +1,6 @@
 import jQuery from "jquery";
 import Avatar_NULL from "assets/img/avatar_null.jpg";
+
 var Server = {
     defaultAvatar : Avatar_NULL,
 
@@ -35,6 +36,41 @@ var Server = {
         "维修受阻",
         "维修完毕",
     ],
+
+    loginToServer : function (username, password, beforeSend, success, error, complete) {
+      const json = {
+        "cmd" : "login",
+        "username": username,
+        "password": password
+      };
+      return jQuery.ajax({
+          type: "post",
+          url: "http://47.112.177.70/",
+          data: JSON.stringify(json),
+          timeout: 5000,
+          beforeSend: beforeSend,
+          success: success,
+          error: error,
+          complete : complete
+        });
+    },
+
+    verify : function (token, beforeSend, success, error, complete) {
+      const json = {
+        "cmd" : "verify",
+        "token": token
+      };
+      return jQuery.ajax({
+          type: "post",
+          url: "http://47.112.177.70/",
+          data: JSON.stringify(json),
+          timeout: 5000,
+          beforeSend: beforeSend,
+          success: success,
+          error: error,
+          complete : complete
+        });
+    },
 
     getUserInfoByUID : function (uid, success, error, complete) {
         return jQuery.ajax({

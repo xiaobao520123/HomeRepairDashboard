@@ -58,7 +58,7 @@ export default function CardOrderContainer() {
                         {
                             this.state.list.map((oid, index) => {
                                 return (
-                                    <GridItem xs={12} sm={6} md={3}>
+                                    <GridItem xs={12} sm={6} md={3} key={index}>
                                         <OrderCard oid={oid} color={index % 4}/>
                                     </GridItem>
                                 );
