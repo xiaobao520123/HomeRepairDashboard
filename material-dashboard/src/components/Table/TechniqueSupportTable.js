@@ -263,109 +263,112 @@ export default function CustomTable(props) {
            <div className={classes.tableResponsive}>
             <Button type="button" color="info" onClick={() => this.handleClickAdd()}>添加</Button>
           {this.state.loadingState === 0 ? <CircularProgress / > : null}
-          <Table className={classes.table}>
-              <TableHead className={classes.successTableHeader}>
-                <TableRow className={classes.tableHeadRow}>
-                  <TableCell 
-                    className={classes.tableCell + " " + classes.tableHeadCell}>
-                      头像
-                  </TableCell>
-                  <TableCell 
-                    className={classes.tableCell + " " + classes.tableHeadCell}>
-                      UID
-                  </TableCell>
-                  <TableCell 
-                    className={classes.tableCell + " " + classes.tableHeadCell}>
-                      姓名
-                  </TableCell>
-                  <TableCell 
-                    className={classes.tableCell + " " + classes.tableHeadCell}>
-                      昵称
-                  </TableCell>
-                  <TableCell 
-                    className={classes.tableCell + " " + classes.tableHeadCell}>
-                      状态
-                  </TableCell>
-                  <TableCell 
-                    className={classes.tableCell + " " + classes.tableHeadCell}>
-                      应聘日期
-                  </TableCell>
-                  <TableCell 
-                    className={classes.tableCell + " " + classes.tableHeadCell}>
-                      操作
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-            <TableBody>
-              {
-                this.state.list.map((ts, index) => {
-                  return (
-                    <TableRow key={index} className={classes.tableBodyRow}>
-                      <TableCell className={classes.tableCellAvatar}>
-                        <Avatar alt={"avatar_uid_" + ts.uid} src={
-                          ts.avatar === null ? Server.defaultAvatar : ts.avatar
-                        }>
-                        </Avatar>
-                      </TableCell>
-                      <TableCell className={classes.tableCell}>
-                        {ts.uid}
-                      </TableCell>
-                      <TableCell className={classes.tableCell}>
-                        {ts.name}
-                      </TableCell>
-                      <TableCell className={classes.tableCell}>
-                        {ts.nickname}
-                      </TableCell>
-                      <TableCell className={classes.tableCell + " " + stateColor[ts.state]}>
-                        {stateName[ts.state]}
-                      </TableCell>
-                      <TableCell className={classes.tableCell}>
-                        {ts.employ_date}
-                      </TableCell>
-                      <TableCell className={classes.tableCellControl}>
-                        <Tooltip
-                          id="tooltip-top"
-                          title="编辑"
-                          placement="top"
-                          classes={{ tooltip: classes.tooltip }}
-                        >
-                          <IconButton
-                            aria-label="Edit"
-                            onClick={() => this.handleEdit(index)}
-                            className={classes.tableActionButton}
+          <div className={classes.panelbody}>
+            <Table className={classes.table}>
+                <TableHead className={classes.successTableHeader}>
+                  <TableRow className={classes.tableHeadRow}>
+                    <TableCell 
+                      className={classes.tableCell + " " + classes.tableHeadCell}>
+                        头像
+                    </TableCell>
+                    <TableCell 
+                      className={classes.tableCell + " " + classes.tableHeadCell}>
+                        UID
+                    </TableCell>
+                    <TableCell 
+                      className={classes.tableCell + " " + classes.tableHeadCell}>
+                        姓名
+                    </TableCell>
+                    <TableCell 
+                      className={classes.tableCell + " " + classes.tableHeadCell}>
+                        昵称
+                    </TableCell>
+                    <TableCell 
+                      className={classes.tableCell + " " + classes.tableHeadCell}>
+                        状态
+                    </TableCell>
+                    <TableCell 
+                      className={classes.tableCell + " " + classes.tableHeadCell}>
+                        应聘日期
+                    </TableCell>
+                    <TableCell 
+                      className={classes.tableCell + " " + classes.tableHeadCell}>
+                        操作
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+              <TableBody>
+                {
+                  this.state.list.map((ts, index) => {
+                    return (
+                      <TableRow key={index} className={classes.tableBodyRow}>
+                        <TableCell className={classes.tableCellAvatar}>
+                          <Avatar alt={"avatar_uid_" + ts.uid} src={
+                            ts.avatar === null ? Server.defaultAvatar : ts.avatar
+                          }>
+                          </Avatar>
+                        </TableCell>
+                        <TableCell className={classes.tableCell}>
+                          {ts.uid}
+                        </TableCell>
+                        <TableCell className={classes.tableCell}>
+                          {ts.name}
+                        </TableCell>
+                        <TableCell className={classes.tableCell}>
+                          {ts.nickname}
+                        </TableCell>
+                        <TableCell className={classes.tableCell + " " + stateColor[ts.state]}>
+                          {stateName[ts.state]}
+                        </TableCell>
+                        <TableCell className={classes.tableCell}>
+                          {ts.employ_date}
+                        </TableCell>
+                        <TableCell className={classes.tableCellControl}>
+                          <Tooltip
+                            id="tooltip-top"
+                            title="编辑"
+                            placement="top"
+                            classes={{ tooltip: classes.tooltip }}
                           >
-                          <Edit
-                            className={
-                              classes.tableActionButtonIcon + " " + classes.edit
-                            }
-                          />
-                          </IconButton>
-                        </Tooltip>
-                        <Tooltip
-                          id="tooltip-top"
-                          title="删除"
-                          placement="top"
-                          classes={{ tooltip: classes.tooltip }}
-                        >
-                          <IconButton
-                            aria-label="Delete"
-                            className={classes.tableActionButton}
-                            onClick={() => this.handleDelete(index)}
+                            <IconButton
+                              aria-label="Edit"
+                              onClick={() => this.handleEdit(index)}
+                              className={classes.tableActionButton}
+                            >
+                            <Edit
+                              className={
+                                classes.tableActionButtonIcon + " " + classes.edit
+                              }
+                            />
+                            </IconButton>
+                          </Tooltip>
+                          <Tooltip
+                            id="tooltip-top"
+                            title="删除"
+                            placement="top"
+                            classes={{ tooltip: classes.tooltip }}
                           >
-                          <Delete
-                            className={
-                              classes.tableActionButtonIcon + " " + classes.delete
-                            }
-                          />
-                          </IconButton>
-                        </Tooltip>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })
-              }
-            </TableBody>
-            </Table>
+                            <IconButton
+                              aria-label="Delete"
+                              className={classes.tableActionButton}
+                              onClick={() => this.handleDelete(index)}
+                            >
+                            <Delete
+                              className={
+                                classes.tableActionButtonIcon + " " + classes.delete
+                              }
+                            />
+                            </IconButton>
+                          </Tooltip>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })
+                }
+              </TableBody>
+              </Table>
+          </div>
+          
             {
               this.state.openEditDialog ? (
                 <Dialog

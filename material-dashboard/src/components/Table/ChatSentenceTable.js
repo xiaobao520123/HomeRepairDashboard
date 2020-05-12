@@ -200,135 +200,138 @@ export default function CustomTable(props) {
         return (
           <div className={classes.tableResponsive}>
             <Button type="button" color="success" onClick={() => this.handleClickAdd()}>添加</Button>
-          <Table className={classes.table}>
-              <TableHead className={classes[tableHeaderColor + "TableHeader"]}>
-                <TableRow className={classes.tableHeadRow}>
-                  <TableCell 
-                    className={classes.tableCell + " " + classes.tableHeadCell}>
-                      启用
-                  </TableCell>
-                  <TableCell 
-                    className={classes.tableCell + " " + classes.tableHeadCell}>
-                      文本
-                  </TableCell>
-                  <TableCell 
-                    className={classes.tableCell + " " + classes.tableHeadCell}>
-                      上次修改
-                  </TableCell>
-                  <TableCell 
-                    className={classes.tableCell + " " + classes.tableHeadCell}>
-                      操作
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-            <TableBody>
-              {this.state.list.map((prop, index) => {
-                var text = prop[1];
-                if (text.length > 20) {
-                  text = text.slice(0, 20);
-                  text = text + "..."
-                }
-                return (
-                  <TableRow key={index} className={classes.tableBodyRow}>
-                    <TableCell className={classes.tableCell}>
-                    <Checkbox
-                      onChange={() => this.handleToggle(index)}
-                      checked={this.state.checkBoxState[index]}
-                      checkedIcon={<Check className={classes.checkedIcon} />}
-                      icon={<Check className={classes.uncheckedIcon} />}
-                      classes={{
-                        checked: classes.checked
-                      }}
-                    />
+          <div className={classes.panelbody}>
+            <Table className={classes.table}>
+                <TableHead className={classes[tableHeaderColor + "TableHeader"]}>
+                  <TableRow className={classes.tableHeadRow}>
+                    <TableCell 
+                      className={classes.tableCell + " " + classes.tableHeadCell}>
+                        启用
                     </TableCell>
-                    {
-                    this.state.editState[index] ? (
-                    <TableCell className={classes.tableCell}>
-                    <CustomInput
-                        id={"editor" + index}
-                        inputProps={{
-                          placeholder: "在这里输入你想添加的文本",
-                          defaultValue: prop[1],
-                          multiline: true,
-                        }}
-                        formControlProps={{
-                          fullWidth: true
-                        }}
-                      />
+                    <TableCell 
+                      className={classes.tableCell + " " + classes.tableHeadCell}>
+                        文本
                     </TableCell>
-                    ) : 
-                    <TableCell className={classes.tableCell}>  
-                    {text}
+                    <TableCell 
+                      className={classes.tableCell + " " + classes.tableHeadCell}>
+                        上次修改
                     </TableCell>
-                  }
-                    <TableCell className={classes.tableCell}>                      
-                      {prop[3]}
-                    </TableCell>
-                    <TableCell className={classes.tableCell} >
-                  {!this.state.editState[index] ? 
-                  (<Tooltip
-                    id="tooltip-top"
-                    title="编辑文本"
-                    placement="top"
-                    classes={{ tooltip: classes.tooltip }}
-                  >
-                    <IconButton
-                      aria-label="Edit"
-                      onClick={() => this.handleEdit(index)}
-                      className={classes.tableActionButton}
-                    >
-                      <Edit
-                        className={
-                          classes.tableActionButtonIcon + " " + classes.edit
-                        }
-                      />
-                    </IconButton>
-                  </Tooltip>) :
-                  (<Tooltip
-                    id="tooltip-top"
-                    title="保存文本"
-                    placement="top"
-                    classes={{ tooltip: classes.tooltip }}
-                  >
-
-                    <IconButton
-                      aria-label="Save"
-                      onClick={() => this.handleEdit(index)}
-                      className={classes.tableActionButton}
-                    >
-                      <Save
-                        className={
-                          classes.tableActionButtonIcon + " " + classes.save
-                        }
-                      />
-                    </IconButton>
-                  </Tooltip>)
-                      }
-
-                  <Tooltip
-                    id="tooltip-top"
-                    title="删除语句"
-                    placement="top"
-                    classes={{ tooltip: classes.tooltip }}
-                  >
-                    <IconButton
-                      aria-label="Delete"
-                      className={classes.tableActionButton}
-                      onClick={() => this.handleDelete(index)}
-                    >
-                      <Delete
-                        className={
-                          classes.tableActionButtonIcon + " " + classes.delete
-                        }
-                      />
-                    </IconButton>
-                  </Tooltip>
+                    <TableCell 
+                      className={classes.tableCell + " " + classes.tableHeadCell}>
+                        操作
                     </TableCell>
                   </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
+                </TableHead>
+              <TableBody>
+                {this.state.list.map((prop, index) => {
+                  var text = prop[1];
+                  if (text.length > 20) {
+                    text = text.slice(0, 20);
+                    text = text + "..."
+                  }
+                  return (
+                    <TableRow key={index} className={classes.tableBodyRow}>
+                      <TableCell className={classes.tableCell}>
+                      <Checkbox
+                        onChange={() => this.handleToggle(index)}
+                        checked={this.state.checkBoxState[index]}
+                        checkedIcon={<Check className={classes.checkedIcon} />}
+                        icon={<Check className={classes.uncheckedIcon} />}
+                        classes={{
+                          checked: classes.checked
+                        }}
+                      />
+                      </TableCell>
+                      {
+                      this.state.editState[index] ? (
+                      <TableCell className={classes.tableCell}>
+                      <CustomInput
+                          id={"editor" + index}
+                          inputProps={{
+                            placeholder: "在这里输入你想添加的文本",
+                            defaultValue: prop[1],
+                            multiline: true,
+                          }}
+                          formControlProps={{
+                            fullWidth: true
+                          }}
+                        />
+                      </TableCell>
+                      ) : 
+                      <TableCell className={classes.tableCell}>  
+                      {text}
+                      </TableCell>
+                    }
+                      <TableCell className={classes.tableCell}>                      
+                        {prop[3]}
+                      </TableCell>
+                      <TableCell className={classes.tableCell} >
+                    {!this.state.editState[index] ? 
+                    (<Tooltip
+                      id="tooltip-top"
+                      title="编辑文本"
+                      placement="top"
+                      classes={{ tooltip: classes.tooltip }}
+                    >
+                      <IconButton
+                        aria-label="Edit"
+                        onClick={() => this.handleEdit(index)}
+                        className={classes.tableActionButton}
+                      >
+                        <Edit
+                          className={
+                            classes.tableActionButtonIcon + " " + classes.edit
+                          }
+                        />
+                      </IconButton>
+                    </Tooltip>) :
+                    (<Tooltip
+                      id="tooltip-top"
+                      title="保存文本"
+                      placement="top"
+                      classes={{ tooltip: classes.tooltip }}
+                    >
+
+                      <IconButton
+                        aria-label="Save"
+                        onClick={() => this.handleEdit(index)}
+                        className={classes.tableActionButton}
+                      >
+                        <Save
+                          className={
+                            classes.tableActionButtonIcon + " " + classes.save
+                          }
+                        />
+                      </IconButton>
+                    </Tooltip>)
+                        }
+
+                    <Tooltip
+                      id="tooltip-top"
+                      title="删除语句"
+                      placement="top"
+                      classes={{ tooltip: classes.tooltip }}
+                    >
+                      <IconButton
+                        aria-label="Delete"
+                        className={classes.tableActionButton}
+                        onClick={() => this.handleDelete(index)}
+                      >
+                        <Delete
+                          className={
+                            classes.tableActionButtonIcon + " " + classes.delete
+                          }
+                        />
+                      </IconButton>
+                    </Tooltip>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </div>
+          
         </div>
         );
       }

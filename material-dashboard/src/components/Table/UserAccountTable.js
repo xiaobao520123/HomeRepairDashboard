@@ -260,7 +260,7 @@ export default function CustomTable(props) {
         this.serverRequest = jQuery.ajax({
           type: "GET",
           url: Server.defaultServerDomain + "/?need=user-info&uid=all",
-          timeout: 5000,
+          timeout: 15000,
           success: function(status) {
             var json = JSON.parse(status);
             const newList = this.state.list;
@@ -296,6 +296,7 @@ export default function CustomTable(props) {
           <div className={classes.tableResponsive}>
             <Button type="button" color="info" onClick={() => this.handleClickAdd()}>添加</Button>
           {this.state.loadingState === 0 ? <CircularProgress / > : null}
+          <div className={classes.panelbody}>
           <Table className={classes.table}>
               <TableHead className={classes.successTableHeader}>
                 <TableRow className={classes.tableHeadRow}>
@@ -392,6 +393,8 @@ export default function CustomTable(props) {
               }
             </TableBody>
           </Table>
+          </div>
+          
           
           {
             this.state.openEditDialog ? (

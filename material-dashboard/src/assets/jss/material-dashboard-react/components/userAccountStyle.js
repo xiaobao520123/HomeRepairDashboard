@@ -119,6 +119,11 @@ const tableStyle = theme => ({
       margin: theme.spacing(2),
     },
   },
+  panelbody: {
+    border: "1px #000000",
+    minWidth: "1000px",
+    margin: "0 auto;"
+  }
 });
 
 export default tableStyle;

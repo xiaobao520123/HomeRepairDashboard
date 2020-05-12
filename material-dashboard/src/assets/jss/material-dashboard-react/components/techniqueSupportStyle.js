@@ -122,6 +122,11 @@ const tableStyle = theme => ({
   },
   stateBlock: {
     color: dangerColor[0]
+  },
+  panelbody: {
+    border: "1px #000000",
+    minWidth: "1000px",
+    margin: "0 auto;"
   }
 });
 
