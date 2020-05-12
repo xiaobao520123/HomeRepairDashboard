@@ -411,6 +411,8 @@ export default function CustomTable(props) {
                 编辑用户（UID：{this.state.list[this.state.userEditing].uid})
               </DialogTitle>
               <DialogContent>
+              <div className={classes.tableResponsive}>
+                  <div className={classes.panelbody}>
                 <Table>
                   <TableBody>
                     <TableRow>
@@ -494,6 +496,8 @@ export default function CustomTable(props) {
                     </TableRow>
                   </TableBody>
                 </Table>
+                </div>
+                </div>
               </DialogContent>
               <DialogActions>
                 <Button autoFocus onClick={e => this.handleApplyEditDialog()} color="info">
@@ -545,6 +549,8 @@ export default function CustomTable(props) {
                 新增用户
               </DialogTitle>
               <DialogContent>
+              <div className={classes.tableResponsive}>
+                  <div className={classes.panelbody}>
                 <Table>
                   <TableBody>
                     <TableRow>
@@ -642,6 +648,8 @@ export default function CustomTable(props) {
                     </TableRow>
                   </TableBody>
                 </Table>
+                </div>
+                </div>
               </DialogContent>
               <DialogActions>
                 <Button autoFocus onClick={e => this.handleCloseAddDialog(true)} color="success">

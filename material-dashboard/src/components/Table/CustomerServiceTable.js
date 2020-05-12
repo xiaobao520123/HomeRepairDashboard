@@ -364,39 +364,45 @@ export default function CustomTable(props) {
                 编辑客服人员（UID：{this.state.list[this.state.userEditing].uid})
               </DialogTitle>
               <DialogContent>
-                <Table>
-                  <TableBody>
-                    <TableRow>
-                      <TableCell>
-                        用户信息
-                      </TableCell>
-                      <TableCell>
-                        <a href="user">
-                          <Button type="button" color="success">
-                          <Exit />
-                          点击转到用户管理界面设置
-                          </Button>
-                        </a>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>
-                        昵称
-                      </TableCell>
-                      <TableCell>
-                        <CustomInput id="input_nickname"
-                          inputProps={{
-                            placeholder: "昵称",
-                            defaultValue: this.state.list[this.state.userEditing].nickname
-                          }}
-                          formControlProps={{
-                            fullWidth: true
-                          }} 
-                        />
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
+                <div className={classes.tableResponsive}>
+                  <div className={classes.panelbody}>
+                  <Table>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell>
+                          用户信息
+                        </TableCell>
+                        <TableCell>
+                          <a href="user">
+                            <Button type="button" color="success">
+                            <Exit />
+                            点击转到用户管理界面设置
+                            </Button>
+                          </a>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          昵称
+                        </TableCell>
+                        <TableCell>
+                          <CustomInput id="input_nickname"
+                            inputProps={{
+                              placeholder: "昵称",
+                              defaultValue: this.state.list[this.state.userEditing].nickname
+                            }}
+                            formControlProps={{
+                              fullWidth: true
+                            }} 
+                          />
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                  </div>
+                  
+                </div>
+                
               </DialogContent>
               <DialogActions>
                 <Button autoFocus onClick={e => this.handleApplyEditDialog()} color="info">
@@ -448,6 +454,8 @@ export default function CustomTable(props) {
                 新增客服人员
               </DialogTitle>
               <DialogContent>
+                <div className={classes.tableResponsive}>
+                  <div className={classes.panelbody}>
                 <Table>
                   <TableBody>
                     <TableRow>
@@ -483,6 +491,8 @@ export default function CustomTable(props) {
                     </TableRow>
                   </TableBody>
                 </Table>
+                </div>
+                </div>
               </DialogContent>
               <DialogActions>
                 <Button autoFocus onClick={e => this.handleCloseAddDialog(true)} color="success">
