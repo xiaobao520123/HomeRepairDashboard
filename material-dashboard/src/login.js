@@ -8,7 +8,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from '@material-ui/core/DialogTitle';
-
+import Zoom from '@material-ui/core/Zoom';
 // component
 import Button from "components/CustomButtons/Button.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
@@ -22,6 +22,11 @@ function setCookie(cname, cvalue, exdays) {
   var expires = "expires="+ d.toUTCString();
   document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Zoom in={true} ref={ref} {...props} />;
+});
+
 
 export default function LoginView() {
   const classes = useStyles();
@@ -72,6 +77,8 @@ export default function LoginView() {
   return(
     <Dialog
     open={true}
+    TransitionComponent={Transition}
+    keepMounted
     aria-labelledby="alert-dialog-title"
     aria-describedby="alert-dialog-description"
     >
