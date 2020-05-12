@@ -281,7 +281,9 @@ export default function OrderPage(props) {
                   查看订单的基本信息
                 </CardHeader>
                 <CardBody>
-                  <Table className={classes.table}>
+                  <div className={classes.tableResponsive}>
+                    <div className={classes.panelbody}>
+                    <Table className={classes.table}>
                     <TableBody>
                       <TableRow key={"OrderNum"} className={classes.TableRow}>
                         <TableCell className={classes.TableCellType + " " + classes.tableCellColorInfo} color="info">
@@ -479,6 +481,10 @@ export default function OrderPage(props) {
                       </TableRow>        
                     </TableBody>
                   </Table>
+                    </div>
+                  
+                  </div>
+                  
                   <br />
                   <div align="right">
                     {this.state.editing === false ?  (

@@ -198,9 +198,11 @@ export default function CustomTable(props) {
 
       render(){
         return (
+          <div>
+          <Button type="button" color="success" onClick={() => this.handleClickAdd()}>添加</Button>
           <div className={classes.tableResponsive}>
-            <Button type="button" color="success" onClick={() => this.handleClickAdd()}>添加</Button>
           <div className={classes.panelbody}>
+
             <Table className={classes.table}>
                 <TableHead className={classes[tableHeaderColor + "TableHeader"]}>
                   <TableRow className={classes.tableHeadRow}>
@@ -331,8 +333,9 @@ export default function CustomTable(props) {
               </TableBody>
             </Table>
           </div>
-          
         </div>
+          </div>
+         
         );
       }
   };

@@ -293,9 +293,10 @@ export default function CustomTable(props) {
 
     render() {
       return (
-          <div className={classes.tableResponsive}>
-            <Button type="button" color="info" onClick={() => this.handleClickAdd()}>添加</Button>
+          <div>
+          <Button type="button" color="info" onClick={() => this.handleClickAdd()}>添加</Button>
           {this.state.loadingState === 0 ? <CircularProgress / > : null}
+          <div className={classes.tableResponsive}>
           <div className={classes.panelbody}>
           <Table className={classes.table}>
               <TableHead className={classes.successTableHeader}>
@@ -653,6 +654,7 @@ export default function CustomTable(props) {
               </Dialog>
             ): ""
           }          
+        </div>
         </div>
       );
     }

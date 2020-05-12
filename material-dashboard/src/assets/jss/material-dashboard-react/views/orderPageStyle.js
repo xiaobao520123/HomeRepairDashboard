@@ -8,10 +8,15 @@ import {
   warningColor,
 } from "assets/jss/material-dashboard-react.js";
 
-const orderPageStyle = {
+const orderPageStyle = theme => ({
   table: {
     marginBottom: "0",
     overflow: "visible"
+  },
+  tableResponsive: {
+    width: "100%",
+    marginTop: theme.spacing(3),
+    overflowX: "auto"
   },
   tableRow: {
     position: "relative",
@@ -79,7 +84,12 @@ const orderPageStyle = {
     borderRadius: "3px",
     position: "relative",
     display: "block",
-  },
-};
+  },  
+   panelbody: {
+    border: "1px #000000",
+    minWidth: "600px",
+    margin: "0 auto;"
+  }
+});
 
 export default orderPageStyle;
